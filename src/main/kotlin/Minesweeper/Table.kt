@@ -1,23 +1,28 @@
 package Minesweeper
 
 class Table {
-        var board : MutableList<MutableList<Int>> = mutableListOf()
+        var original_board : MutableList<MutableList<Any>> = mutableListOf()
+        var dublicate_board : MutableList<MutableList<Any>> = mutableListOf()
         var size = 0
+        val positions = mutableListOf<String>()
 
         //creates a list of lists based on the size given
         fun create_board(){
             for (i in 1..size){
-                val row = mutableListOf<Int>()
+                val row = mutableListOf<Any>()
+                val row2 = mutableListOf<Any>()
                 for (a in 1..size){
                     val spot = Spot()
                     row.add(spot.state)
+                    row2.add("X")
                 }
-                board.add(row)
+                original_board.add(row)
+                dublicate_board.add(row2)
             }
         }
 
-        //prints out each item in the board list
-        fun display_board(){
+        //prints out each item in the original_board list
+        fun display_board(board : MutableList<MutableList<Any>>){
             for (row in board){
                 for(spot in row){
                     print("$spot  ")
@@ -48,7 +53,7 @@ class Table {
                 if(y in 0 until size){
                     for(x in column_list){
                         if(x in 0 until size){
-                            if(board[y][x] == 0)
+                            if(original_board[y][x] == 0)
                                 counter += 1
                         }
                     }
@@ -62,16 +67,22 @@ class Table {
         fun loss_checker(coordinates: String):Boolean{
             val X = coordinates[1].digitToInt()
             val Y = coordinates[0].digitToInt()
-            return board[Y][X] == 0
+            return original_board[Y][X] == 0
 
         }
-    
+
         // replace the position player has choosen with the number of mines around it
         fun replace(coordinates: String, counter : Int){
             val X = coordinates[1].digitToInt()
             val Y = coordinates[0].digitToInt()
-            board[Y][X] = counter
+            if(counter == 0){
+                dublicate_board[Y][X] = " "
+            }else{
+                dublicate_board[Y][X] = counter
+            }
         }
+
+
 }
 
 
