@@ -14,8 +14,17 @@ fun main() {
             print("Game Over !!")
             break
         }
-        game.mine_counter(game.coordinate_calculator(Input))
-        game.replace(game.coordinate_calculator(Input),game.mine_counter(game.coordinate_calculator(Input)))
+        game.counter(game.coordinate_calculator(Input),0)
+        game.replace(game.coordinate_calculator(Input),game.counter(game.coordinate_calculator(Input),0))
+        for(i in 1..game.size){
+            game.reveal_spaces()
+            game.reveal_number_mines()
+        }
+
+
+
+
+
     }
 
 
